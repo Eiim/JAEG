@@ -5,3 +5,66 @@ body {
 h2 {
 	font-family: Lexend
 }
+hr {
+	background-color: #000;
+	border: 1px solid #000;
+}
+
+/* here be wizardry */
+input[type=range] {
+  -webkit-appearance: none;
+  background: transparent;
+}
+
+input[type=range]:focus {
+  outline: none;
+}
+
+input[type=range]::-webkit-slider-thumb {
+	margin-top:-8px;	
+}
+
+input[type=range]::-moz-range-thumb {
+	cursor: pointer;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+  position: relative;
+  top: -4px;
+  height: 2px;
+  cursor: pointer;
+  background: #000;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #000;
+}
+
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 2px;
+  cursor: pointer;
+  background: #000;
+}
+
+input[type=range]::-ms-track {
+  width: 100%;
+  height: 2px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  border-width: 16px 0;
+  color: transparent;
+}
+input[type=range]::-ms-fill-lower {
+  background: #000;
+}
+input[type=range]:focus::-ms-fill-lower {
+  background: #000;
+}
+input[type=range]::-ms-fill-upper {
+  background: #000;
+}
+input[type=range]:focus::-ms-fill-upper {
+  background: #000;
+}
