@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8"/>
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@600&family=Poppins&display=swap" rel="stylesheet"> 
+	<script src=index.js></script>
+	<link href=main.css rel="stylesheet">
+	<title>JAEG: JPEG-Encoded Audio</title>
+</head>
+<body>
+	<h2>JAEG: JPEG-Encoded Audio</h2>
+	<hr>
+	<p>Convert audio to image</p>
+	<input type="file" accept=".wav,audio/wav" id="sourceAudio" name="sourceAudio">
+	<button type="button" onclick="convertAudio()">Convert!</button>
+	<hr>
+	<p>Convert image to audio</p>
+	<input type="file" accept=".jpg,.jpeg,image/jpeg" id="sourceImage" name="sourceImage">
+	<button type="button" onclick="convertImage()">Convert!</button>
+</body>
+</html>
