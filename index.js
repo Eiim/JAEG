@@ -54,7 +54,9 @@ function convertAudio() {
 			status.textContent = "Compressing to JPEG";
 			imageConversion.canvastoFile(canvas, .5, "image/jpeg").then(file => {
 				status.textContent = "Downloading";
-				imageConversion.downloadFile(file);
+				origName = document.getElementById('sourceAudio').files[0].name;
+				newName = origName.substring(0, origName.lastIndexOf("."))+".jpeg";
+				imageConversion.downloadFile(file, newName);
 				status.textContent = "Done!";
 			});
 		})
