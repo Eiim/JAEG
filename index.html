@@ -13,15 +13,16 @@
 	<h2>JAEG: JPEG-Encoded Audio</h2>
 	<hr>
 	<p>Convert audio to image</p>
-	<input type="file" accept=".wav,audio/wav" id="sourceAudio" name="sourceAudio">
+	<input type="file" accept=".wav,audio/wav,audio/*" id="sourceAudio" name="sourceAudio">
 	<div>
 		<input type="range" min="0" max="1" step=".01" id="quality" style="margin-top: 4px">
 		<label for="quality" style="position: absolute;margin-left: 5px">Quality</label>
 	</div>
 	<button type="submit" onclick="convertAudio()">Convert!</button>
+	<p id="status"></p>
 	<hr>
 	<p>Convert image to audio</p>
-	<input type="file" accept=".jpg,.jpeg,image/jpeg" id="sourceImage" name="sourceImage">
+	<input type="file" accept=".jpg,.jpeg,.jaeg,.jfif,image/jpeg" id="sourceImage" name="sourceImage">
 	<button type="submit" onclick="convertImage()">Convert!</button>
 </body>
 </html>

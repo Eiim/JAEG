@@ -14,15 +14,25 @@ Copyright 2021 Eiim and/or contributors
    limitations under the License.
 */
 function convertAudio() {
+	const status = document.getElementById("status");
+	status.textContent = "Initializing";
 	const baseAudioContext = new AudioContext();
 	const audio = document.getElementById('sourceAudio').files[0];
+	status.textContent = "Buffering file";
 	audio.arrayBuffer().then(buffer => {
+		status.textContent = "Decoding audio";
 		baseAudioContext.decodeAudioData(buffer).then(audiobuf => {
+			status.textContent = "Processing audio";
 			audioarr = audiobuf.getChannelData(0);
+			if(audioarr.length >= 2**30) {
+				status.textContent = "Error: audio too long";
+				return;
+			}
 			max = 0;
 			for(a of audioarr){if (Math.abs(a) > max){max = Math.abs(a)}}
 			imgdim = Math.ceil(Math.sqrt(audioarr.length));
 			console.log(imgdim);
+			status.textContent = "Converting to image data";
 			imgarr = new Uint8ClampedArray((imgdim**2)*4);
 			imgarr.fill(255);
 			for(i in audioarr){
@@ -32,8 +42,8 @@ function convertAudio() {
 				imgarr[4*i+2] = darkness;
 				imgarr[4*i+3] = 255;
 			}
-			console.log(imgarr);
 			// imgarr has RGBA values
+			status.textContent = "Setting up canvas";
 			var canvas = document.createElement('canvas');
 			ctx = canvas.getContext('2d');
 			canvas.width = imgdim;
@@ -41,8 +51,11 @@ function convertAudio() {
 			var idata = ctx.createImageData(imgdim, imgdim);
 			idata.data.set(imgarr);
 			ctx.putImageData(idata, 0, 0);
+			status.textContent = "Compressing to JPEG";
 			imageConversion.canvastoFile(canvas, .5, "image/jpeg").then(file => {
+				status.textContent = "Downloading";
 				imageConversion.downloadFile(file);
+				status.textContent = "Done!";
 			});
 		})
 	});
