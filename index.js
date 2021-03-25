@@ -66,7 +66,7 @@ function convertImage() {
 	const status = document.getElementById("toAudioStatus");
 	status.textContent = "Initializing";
 	const image = document.getElementById('sourceImage').files[0];
-	status.textContent = "Parsing JPEG";
+	status.textContent = "Parsing image";
 	imageConversion.filetoDataURL(image).then(dataurl => {
 		status.textContent = "Conversion step 1";
 		imageConversion.dataURLtoImage(dataurl).then(imageobj => {
