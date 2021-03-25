@@ -92,6 +92,7 @@ function convertImage() {
 				origName = document.getElementById('sourceImage').files[0].name;
 				newName = origName.substring(0, origName.lastIndexOf("."))+".wav";
 				saveAs(blob, newName);
+				status.textContent = "Done!";
 			})
 		})
 	})
