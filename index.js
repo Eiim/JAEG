@@ -14,7 +14,7 @@ Copyright 2021 Eiim and/or contributors
    limitations under the License.
 */
 function convertAudio() {
-	const status = document.getElementById("status");
+	const status = document.getElementById("toImageStatus");
 	status.textContent = "Initializing";
 	const baseAudioContext = new AudioContext();
 	const audio = document.getElementById('sourceAudio').files[0];
@@ -61,11 +61,38 @@ function convertAudio() {
 			});
 		})
 	});
-	
-	/*imageConversion.compress(file,0.25).then(res=>{
-		console.log(res);
-	})*/	
 }
 function convertImage() {
-	
+	const status = document.getElementById("toAudioStatus");
+	status.textContent = "Initializing";
+	const image = document.getElementById('sourceImage').files[0];
+	status.textContent = "Parsing JPEG";
+	imageConversion.filetoDataURL(image).then(dataurl => {
+		status.textContent = "Conversion step 1";
+		imageConversion.dataURLtoImage(dataurl).then(imageobj => {
+			status.textContent = "Conversion step 2";
+			imageConversion.imagetoCanvas(imageobj).then(canvas => {
+				status.textContent = "Processing image data";
+				ctx = canvas.getContext('2d');
+				imgdata = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+				
+				status.textContent = "Converting to audio data";
+				buffer = new Float32Array(imgdata.length/4);
+				for(i = 0; i < imgdata.length; i += 4) {
+					darkness = (imgdata[i]+imgdata[i+1]+imgdata[i+2])/3
+					buffer[i/4] = (darkness-128)/128
+				}
+				
+				status.textContent = "Encoding audio data";
+				encoder = new WavAudioEncoder(44100, 1);
+				encoder.encode([buffer]);
+				blob = encoder.finish();
+				
+				status.textContent = "Downloading";
+				origName = document.getElementById('sourceImage').files[0].name;
+				newName = origName.substring(0, origName.lastIndexOf("."))+".wav";
+				saveAs(blob, newName);
+			})
+		})
+	})
 }
