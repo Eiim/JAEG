@@ -53,6 +53,16 @@ function convertAudio() {
 			ctx.putImageData(idata, 0, 0);
 			status.textContent = "Compressing to JPEG";
 			imageConversion.canvastoFile(canvas, .5, "image/jpeg").then(file => {
+				/*status.textContent = "Adding custom flags";
+				var jaegFlags = {};
+				jaegFlags[0] = 0; // JAEFType
+				jaegFlags[1] = audiobuf.sampleRate; // Sample rate
+				jaegFlags[2] = imgdim**2 - audioarr.length; // Extra samples
+				var exifStr = piexif.dump({JAEG: jaegFlags});
+				console.log(file);
+				file = piexif.insert(exifStr, file);
+				console.log(file);*/
+				
 				status.textContent = "Downloading";
 				origName = document.getElementById('sourceAudio').files[0].name;
 				newName = origName.substring(0, origName.lastIndexOf("."))+".jpeg";
