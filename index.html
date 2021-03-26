@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8"/>
+	<meta name="description" content="JAEG - Audio encoded with JPEG">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@600&family=Poppins&display=swap" rel="stylesheet"> 
 	<script src="https://cdn.jsdelivr.net/gh/WangYuLue/image-conversion/build/conversion.js"></script>
@@ -17,7 +19,10 @@
 	<h2>JAEG: JPEG-Encoded Audio</h2>
 	<hr>
 	<p>Convert audio to image</p>
-	<input type="file" accept=".wav,audio/wav,audio/*" id="sourceAudio" name="sourceAudio">
+	<div>
+		<label for="sourceAudio">Input audio:</label>
+		<input type="file" accept="audio/*" id="sourceAudio" name="sourceAudio">
+	</div>
 	<div>
 		<input type="range" min="0" max="1" step=".01" id="quality" style="margin-top: 4px">
 		<label for="quality" style="position: absolute;margin-left: 5px">Quality</label>
@@ -26,7 +31,10 @@
 	<p id="toImageStatus"></p>
 	<hr>
 	<p>Convert image to audio</p>
-	<input type="file" accept=".jaeg,image/*" id="sourceImage" name="sourceImage">
+	<div>
+		<label for="sourceImage">Input image:</label>
+		<input type="file" accept=".jaeg,image/*" id="sourceImage" name="sourceImage">
+	</div>
 	<button type="submit" onclick="convertImage()">Convert!</button>
 	<p id="toAudioStatus"></p>
 </body>
