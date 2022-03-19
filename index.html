@@ -27,7 +27,11 @@
 		<input type="range" min="0" max="1" step=".01" id="quality" style="margin-top: 4px">
 		<label for="quality" style="position: absolute;margin-left: 5px">Quality</label>
 	</div>
-	<button type="submit" onclick="convertAudio()">Convert!</button>
+	<div>
+		<input type="number" id="aspect" value="1" style="margin-top: 4px">
+		<label for="aspect" style="position: absolute;margin-left: 5px">Aspect Ratio</label>
+	</div>
+	<button type="submit" onclick="convertAudio()" style="margin-top: 8px">Convert!</button>
 	<p id="toImageStatus"></p>
 	<hr>
 	<p>Convert image to audio</p>

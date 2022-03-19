@@ -30,10 +30,12 @@ function convertAudio() {
 			}
 			max = 0;
 			for(a of audioarr){if (Math.abs(a) > max){max = Math.abs(a)}}
-			imgdim = Math.ceil(Math.sqrt(audioarr.length));
-			console.log(imgdim);
+			aspect = 1.0*document.getElementById("aspect").value;
+			imgwidth = Math.ceil(Math.sqrt(aspect*audioarr.length));
+			imgheight = Math.ceil(Math.sqrt(audioarr.length/aspect));
+			console.log(imgwidth+"x"+imgheight);
 			status.textContent = "Converting to image data";
-			imgarr = new Uint8ClampedArray((imgdim**2)*4);
+			imgarr = new Uint8ClampedArray(imgheight*imgwidth*4);
 			imgarr.fill(255);
 			for(i in audioarr){
 				darkness = ((audioarr[i]/max)+1)*128;
@@ -46,9 +48,9 @@ function convertAudio() {
 			status.textContent = "Setting up canvas";
 			var canvas = document.createElement('canvas');
 			ctx = canvas.getContext('2d');
-			canvas.width = imgdim;
-			canvas.height = imgdim;
-			var idata = ctx.createImageData(imgdim, imgdim);
+			canvas.width = imgwidth;
+			canvas.height = imgheight;
+			var idata = ctx.createImageData(imgwidth, imgheight);
 			idata.data.set(imgarr);
 			ctx.putImageData(idata, 0, 0);
 			status.textContent = "Compressing to JPEG";
@@ -58,7 +60,7 @@ function convertAudio() {
 				var jaegFlags = {};
 				jaegFlags[0] = 0; // JAEFType
 				jaegFlags[1] = audiobuf.sampleRate; // Sample rate
-				jaegFlags[2] = imgdim**2 - audioarr.length; // Extra samples
+				jaegFlags[2] = imgwidth*imgheight - audioarr.length; // Extra samples
 				var exifStr = piexif.dump({JAEG: jaegFlags});
 				console.log(file);
 				file = piexif.insert(exifStr, file);
